@@ -16,6 +16,25 @@ const GetProducts = (req, res) => {
     })
 }
 
+const GetProductById = (req, res) => {
+    res.status(200).send({'message': 'GetProductById', 'value': req.params.productId})
+}
+
+const AddProduct = (req, res) => {
+    res.status(200).send({'message': 'AddProduct', 'value': req.body})
+}
+
+const UpdateProduct = (req, res) => {
+    res.status(200).send({'message': 'UpdateProduct', 'value': req.body, 'param': req.params.productId})
+}
+
+const DeleteProduct = (req, res) => {
+    res.status(200).send({'message': 'DeleteProduct', 'param': req.params.productId})
+}
 export default {
     GetProducts,
+    GetProductById,
+    AddProduct,
+    UpdateProduct,
+    DeleteProduct,
 }
