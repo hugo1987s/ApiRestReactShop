@@ -21,11 +21,32 @@ const GetProductById = (req, res) => {
 }
 
 const AddProduct = (req, res) => {
-    res.status(200).send({'message': 'AddProduct', 'value': req.body})
+
+    firebase.firestore().collection(collectionName).add(req.body)
+    .then( () => {
+        res.status(200).send({'message' : "Product added ok"})
+    })
+    .catch( (err)=> { 
+        res.status(500).send({'message': 'An error has ocurred', 'error': err})
+    })
+ 
 }
 
 const UpdateProduct = (req, res) => {
-    res.status(200).send({'message': 'UpdateProduct', 'value': req.body, 'param': req.params.productId})
+    firebase.firestore().doc(`${collectionName}/${req.params.productId}`)
+    .set({
+        description: req.body.description,
+        title: req.body.title,
+        price: req.body.price,
+        image: req.body.image
+    },{merge:true})
+    .then( ()=> {
+        res.status(200).send({'message': 'UpdateProduct', 'value': req.body, 'param': req.params.productId})
+    })
+    .catch( (err )=> {
+        res.status(500).send({'message': 'An error has ocurred', 'error': err})
+    })
+    
 }
 
 const DeleteProduct = (req, res) => {
