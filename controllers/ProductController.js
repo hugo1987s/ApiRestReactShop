@@ -23,8 +23,8 @@ const GetProductById = (req, res) => {
 const AddProduct = (req, res) => {
 
     firebase.firestore().collection(collectionName).add(req.body)
-    .then( () => {
-        res.status(200).send({'message' : "Product added ok"})
+    .then( (docRef) => {
+        res.status(200).send({'docId': docRef.id})
     })
     .catch( (err)=> { 
         res.status(500).send({'message': 'An error has ocurred', 'error': err})
