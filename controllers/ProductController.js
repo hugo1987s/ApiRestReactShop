@@ -1,13 +1,22 @@
 import firebase from '../configs/firebaseConfig'
+import ProductModel from '../models/ProductModel'
 
 const collectionName = 'products'
 
 const GetProducts = (req, res) => {
     firebase.firestore().collection(collectionName).get()
     .then( snapshot => {
-        let resp = []
-        snapshot.docs.forEach(element => {
-            resp.push(element.data())    
+            let resp = []
+            snapshot.docs.forEach(element => {
+        
+            let model = new ProductModel()
+            model.id = element.id,
+            model.title = element.data().title,
+            model.description = element.data().description,
+            model.price = element.data().price,
+            model.image = element.data().image
+
+            resp.push(model)
         }); 
         res.status(200).send(resp)
     })
