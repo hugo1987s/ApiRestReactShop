@@ -59,7 +59,15 @@ const UpdateProduct = (req, res) => {
 }
 
 const DeleteProduct = (req, res) => {
-    res.status(200).send({'message': 'DeleteProduct', 'param': req.params.productId})
+
+    firebase.firestore().collection("products").doc(req.params.productId).delete()
+    .then( ()=> {
+        res.status(200).send({'message': 'Deleted Ok', 'Deleted Id': req.params.productId})
+    })
+    .catch( err => {
+        res.status(500).send({'message': 'An error has ocurred', 'error': err})
+    })
+    
 }
 export default {
     GetProducts,
