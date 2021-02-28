@@ -1,6 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import ProductRoutes from './routes/ProductRoutes'
+import EmailRoutes from './routes/EmailRoutes'
 
 const server = express()
 const serverPort = process.env.PORT || 4500
@@ -9,6 +10,7 @@ server.use(bodyParser.urlencoded({ extended: false}))
 server.use(bodyParser.json())
 
 server.use('/api/products', ProductRoutes)
+server.use('/api/sendmail', EmailRoutes)
 /* server.get('/api/products', ProductController.GetProducts)
 server.get('/api/products/:productId', ProductController.GetProductById)
 server.post('/api/product', ProductController.AddProduct)
