@@ -2,10 +2,12 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import ProductRoutes from './routes/ProductRoutes'
 import EmailRoutes from './routes/EmailRoutes'
+import cors from 'cors'
 
 const server = express()
 const serverPort = process.env.PORT || 4500
 
+server.use(cors())
 server.use(bodyParser.urlencoded({ extended: false}))
 server.use(bodyParser.json())
 
